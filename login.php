@@ -24,7 +24,8 @@
             $error = '';
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                // Connect to database (try to auto-create DB when missing)
+            
+            
                 $conn = @mysqli_connect("localhost", "root", "", "simple_login");
                 if (!$conn) {
                     $error = "Connection failed: " . mysqli_connect_error();
@@ -32,11 +33,13 @@
                     $username = $_POST['username'] ?? '';
                     $password = $_POST['password'] ?? '';
 
-                    // Simple direct query to check credentials
+                
+                    
                     $sql = "SELECT id FROM users WHERE username = '$username' AND password = '$password'";
                     $res = mysqli_query($conn, $sql);
                     if ($res && mysqli_num_rows($res) > 0) {
-                        // Correct login, set session and redirect
+                        
+                    
                         $_SESSION['admin_logged_in'] = true;
                         header("Location: dashboard.php");
                         exit();
