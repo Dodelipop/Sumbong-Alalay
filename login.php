@@ -1,3 +1,29 @@
+<?php
+session_start();
+$error = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $conn = @mysqli_connect("localhost", "root", "", "sumbong_alalay");
+    if (!$conn) {
+        $error = "Connection failed: " . mysqli_connect_error();
+    } else {
+        $username = mysqli_real_escape_string($conn, $_POST['username'] ?? '');
+        $password = mysqli_real_escape_string($conn, $_POST['password'] ?? '');
+
+        $sql = "SELECT id FROM users WHERE username = '$username' AND password = '$password'";
+        $res = mysqli_query($conn, $sql);
+        
+        if ($res && mysqli_num_rows($res) > 0) {
+            $_SESSION['admin_logged_in'] = true;
+            header("Location: dashboard.php");
+            exit();
+        } else {
+            $error = "Wrong username or password!";
+        }
+        mysqli_close($conn);
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,48 +34,15 @@
     <meta name="robots" content="noindex">
     <style>
         .login-card { max-width:420px; margin:4rem auto; }
-        .error { color: red; margin-top: 1rem; }
+        .error { color: #dc2626; margin-top: 1rem; font-weight: bold; text-align: center; }
     </style>
 </head>
 <body>
     <section class="login-section">
         <div class="login-card">
-            <div class="login-icon"></div>
+            <div class="login-icon">🔑</div>
             <h2>Admin Login</h2>
             <p class="subtitle">Mag-login para ma-access ang Admin Dashboard</p>
-
-            <!-- Login -->
-            <?php
-            session_start();
-            $error = '';
-
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
-            
-                $conn = @mysqli_connect("localhost", "root", "", "simple_login");
-                if (!$conn) {
-                    $error = "Connection failed: " . mysqli_connect_error();
-                } else {
-                    $username = $_POST['username'] ?? '';
-                    $password = $_POST['password'] ?? '';
-
-                
-                    
-                    $sql = "SELECT id FROM users WHERE username = '$username' AND password = '$password'";
-                    $res = mysqli_query($conn, $sql);
-                    if ($res && mysqli_num_rows($res) > 0) {
-                        
-                    
-                        $_SESSION['admin_logged_in'] = true;
-                        header("Location: dashboard.php");
-                        exit();
-                    } else {
-                        $error = "Wrong username or password!";
-                    }
-                    mysqli_close($conn);
-                }
-            }
-            ?>
 
             <form action="" method="post" novalidate>
                 <div class="form-group">

@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sumbong Alalay - Barangay Emergency System</title>
+    <title>Sumbong Alalay - Emergency System</title>
     <link rel="stylesheet" href="styles.css">
     <meta name="robots" content="noindex">
     <style>
       
         .radio-option.selected {
-            border-color: #ef4444;
+            border-color: #1d1a1a;
             background-color: #fef2f2;
         }
     </style>
@@ -22,7 +22,7 @@
                     <div class="logo-icon"></div>
                     <div class="logo-text">
                         <h1><span class="brand-red">Sumbong</span> Alalay</h1>
-                        <p>Barangay Emergency System</p>
+                        <p>Barangay Lourdes North West System</p>
                     </div>
                 </a>
                 
@@ -140,6 +140,8 @@
                             <div class="emergency-contacts">
                                 <h4>Emergency Hotlines (Para sa Agarang Tulong)</h4>
                                 <div class="hotlines-grid">
+                                    <div class="hotline-card hotline-911"><p>National Emergency</p><a href="tel:911">911</a></div>
+                                    <div class="hotline-card hotline-pnp"><p>PNP Hotline</p><a href="tel:117">117</a></div>
                                     <div class="hotline-card hotline-911"><p>National Emergency</p><a href="tel:911">911</a></div>
                                     <div class="hotline-card hotline-pnp"><p>PNP Hotline</p><a href="tel:117">117</a></div>
                                 </div>
