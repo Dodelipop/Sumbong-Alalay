@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header('Location: login.php');
     exit();
@@ -149,6 +150,7 @@ $reports = mysqli_query($conn, "SELECT * FROM reports $where_clause ORDER BY cre
                             <th style="padding: 15px; border-bottom: 2px solid #e2e8f0; color: #64748b;">Location</th>
                             <th style="padding: 15px; border-bottom: 2px solid #e2e8f0; color: #64748b;">Concern Preview</th>
                             <th style="padding: 15px; border-bottom: 2px solid #e2e8f0; color: #64748b;">Status</th>
+                            <th style="padding: 15px; border-bottom: 2px solid #e2e8f0; color: #64748b;">Duplicate Flag</th>
                             <th style="padding: 15px; border-bottom: 2px solid #e2e8f0; color: #64748b;">Date Submitted</th>
                         </tr>
                     </thead>
@@ -166,6 +168,9 @@ $reports = mysqli_query($conn, "SELECT * FROM reports $where_clause ORDER BY cre
                                         <hr class="info-divider">
                                         <span class="info-header">Concern</span>
                                         <span class="info-val" style="color: #60a5fa;"><?php echo nl2br(htmlspecialchars($row['concern_type'])); ?></span>
+                                        <hr class="info-divider">
+                                        <span class="info-header">Duplicate Status</span>
+                                        <span class="info-val"><?php echo ($row['is_duplicate'] == 1) ? ' Flagged as Duplicate' : '✓ Original Report'; ?></span>
                                     </div>
                                     <strong><?php echo htmlspecialchars($row['reporter_name']); ?></strong>
                                 </td>
@@ -180,6 +185,13 @@ $reports = mysqli_query($conn, "SELECT * FROM reports $where_clause ORDER BY cre
                                         <a href="dashboard.php?action=revert&id=<?php echo $row['id']; ?>" class="status-toggle status-resolved">
                                             <span>Resolved</span>
                                         </a>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if($row['is_duplicate'] == 1): ?>
+                                        <span style="background-color: #fca5a5; color: #991b1b; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; border: 1px solid #ef4444;"> Duplicate</span>
+                                    <?php else: ?>
+                                        <span style="background-color: #d1fae5; color: #065f46; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; border: 1px solid #34d399;">✓ Original</span>
                                     <?php endif; ?>
                                 </td>
                                 <td><small><?php echo date('M d, Y', strtotime($row['created_at'])); ?></small></td>
