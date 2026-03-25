@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS `reports` (
   `location` TEXT NOT NULL,
   `concern_type` VARCHAR(100) NOT NULL,
   `status` ENUM('Pending', 'Resolved') DEFAULT 'Pending',
+  `is_duplicate` BOOLEAN DEFAULT FALSE COMMENT 'Flagged as duplicate for admin review',
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
