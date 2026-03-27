@@ -56,14 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
                 </div>
 
-                <div class="demo-credentials">
-                    <p>
-                        <strong>Demo Credentials:</strong><br>
-                        Username: <code>admin</code><br>
-                        Password: <code>admin1234</code>
-                    </p>
-                </div>
-
                 <?php if ($error !== ''): ?>
                     <div class="error"><?php echo $error; ?></div>
                 <?php endif; ?>
